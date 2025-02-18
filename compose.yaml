@@ -1,0 +1,37 @@
+services:
+  parent-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: parent-app:latest
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/parent-app-db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=pass
+    depends_on:
+      - db
+    ports:
+      - "7070:7070"
+    networks:
+      - parent-net
+
+  db:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=parent-app-db'
+      - 'POSTGRES_PASSWORD=pass'
+      - 'POSTGRES_USER=user'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - parent-net
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  parent-net:
+    driver: bridge
