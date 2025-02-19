@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.liquibase.gradle' version '2.2.0'
 }
 
 group = 'bg.enterprise'
@@ -29,9 +30,15 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.liquibase:liquibase-core:4.24.0'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	liquibaseRuntime 'org.liquibase:liquibase-groovy-dsl:2.1.1'
+	liquibaseRuntime 'info.picocli:picocli:4.7.5'
+	liquibaseRuntime 'org.yaml:snakeyaml:1.33'
+	liquibaseRuntime 'org.postgresql:postgresql:42.5.0'
 }
 
 tasks.named('test') {
