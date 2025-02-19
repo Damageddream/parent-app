@@ -3,18 +3,17 @@ package bg.enterprise.parent_app.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
 public class PrescriptionDto extends AuditDto {
-    private Long childId;
-    private Long medicationId;
-    private BigDecimal dosageAmount;
+    private long childId;
+    private long medicationId;
+    private float dosageAmount;
     private String dosageUnit;
-    private Integer frequencyPerDay;
+    private int frequencyPerDay;
     private LocalDate startDate;
     private LocalDate endDate;
     private String notes;

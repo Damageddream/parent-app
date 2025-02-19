@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +26,9 @@ public class Prescription extends Audit {
     @JoinColumn(name = "medication_id", nullable = false)
     private Medication medication;
 
-    private BigDecimal dosageAmount;
+    private float dosageAmount;
     private String dosageUnit;
-    private Integer frequencyPerDay;
+    private int frequencyPerDay;
     private LocalDate startDate;
     private LocalDate endDate;
     private String notes;

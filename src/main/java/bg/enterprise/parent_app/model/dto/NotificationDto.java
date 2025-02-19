@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NotificationDto extends AuditDto {
-    private Long parentId;
-    private Long childId;
+    private long parentId;
+    private long childId;
     private String message;
-    private Boolean isRead;
+    private boolean isRead;
 }

@@ -24,5 +24,5 @@ public class Notification extends Audit {
     private Child child;
 
     private String message;
-    private Boolean isRead;
+    private boolean isRead;
 }
