@@ -12,7 +12,7 @@ public class Medication extends Audit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String brand;
     private String description;

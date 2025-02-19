@@ -14,7 +14,7 @@ public class DosageLog extends Audit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private float dosageGiven;
     private Instant administeredAt;
     private String notes;
