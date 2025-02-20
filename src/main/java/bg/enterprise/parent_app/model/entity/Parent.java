@@ -30,7 +30,7 @@ public class Parent extends Audit {
     private List<DosageLog> dosageLogs = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicineOpenLog> medicineOpenLogs = new ArrayList<>();
+    private List<MedicationOpenLog> medicationOpenLogs = new ArrayList<>();
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
