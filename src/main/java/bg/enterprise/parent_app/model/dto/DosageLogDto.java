@@ -8,7 +8,7 @@ import java.time.Instant;
 @Getter
 @Setter
 public class DosageLogDto extends AuditDto {
-    private float dosageGiven;
+    private Long dosageGiven;
     private Instant administeredAt;
     private String notes;
 }

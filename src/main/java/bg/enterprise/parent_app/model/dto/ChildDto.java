@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ChildDto extends AuditDto {
-    private long parentId;
+    private Long parentId;
     private String firstName;
     private String lastName;
     private LocalDate birthdate;

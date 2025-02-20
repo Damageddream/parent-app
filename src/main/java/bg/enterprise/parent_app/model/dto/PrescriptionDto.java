@@ -9,11 +9,11 @@ import java.util.List;
 @Getter
 @Setter
 public class PrescriptionDto extends AuditDto {
-    private long childId;
-    private long medicationId;
-    private float dosageAmount;
+    private Long childId;
+    private Long medicationId;
+    private Float dosageAmount;
     private String dosageUnit;
-    private int frequencyPerDay;
+    private Integer frequencyPerDay;
     private LocalDate startDate;
     private LocalDate endDate;
     private String notes;

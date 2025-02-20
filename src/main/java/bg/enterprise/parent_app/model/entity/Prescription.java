@@ -26,9 +26,9 @@ public class Prescription extends Audit {
     @JoinColumn(name = "medication_id", nullable = false)
     private Medication medication;
 
-    private float dosageAmount;
+    private Float dosageAmount;
     private String dosageUnit;
-    private int frequencyPerDay;
+    private Integer frequencyPerDay;
     private LocalDate startDate;
     private LocalDate endDate;
     private String notes;
