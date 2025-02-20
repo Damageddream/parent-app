@@ -37,5 +37,5 @@ public class Prescription extends Audit {
     private List<DosageLog> dosageLogs = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicineOpenLog> medicineOpenLogs = new ArrayList<>();
+    private List<MedicationOpenLog> medicationOpenLogs = new ArrayList<>();
 }

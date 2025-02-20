@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-public class MedicineOpenLogDto extends AuditDto {
+public class MedicationOpenLogDto extends AuditDto {
     private Instant openedAt;
     private String notes;
 }

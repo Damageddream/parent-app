@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "medicine_open_log")
+@Table(name = "medication_open_log")
 @Getter
 @Setter
-public class MedicineOpenLog extends Audit {
+public class MedicationOpenLog extends Audit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
