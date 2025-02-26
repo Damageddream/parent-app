@@ -4,15 +4,11 @@ import bg.enterprise.parent_app.model.type.InjuryType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
-public class InjuryDto extends AuditDto {
+public class InjuryDto extends EventDto {
     private String name;
-    private InjuryType type;
-    private String description;
     private Long childId;
-    private LocalDate eventStart;
-    private LocalDate eventEnd;
+    private InjuryType injuryType;
+    private String description;
 }
