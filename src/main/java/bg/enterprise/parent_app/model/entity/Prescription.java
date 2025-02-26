@@ -22,20 +22,35 @@ public class Prescription extends Audit {
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
 
+    @OneToOne
+    @JoinColumn(name = "illness_id")
+    private Illness illness;
+
+    @OneToOne
+    @JoinColumn(name = "injury_id")
+    private Injury injury;
+
     @ManyToOne
     @JoinColumn(name = "medication_id", nullable = false)
     private Medication medication;
 
+    @Column(nullable = false)
     private Float dosageAmount;
+
+    @Column(length = 20, nullable = false)
     private String dosageUnit;
+
+    @Column(nullable = false)
     private Integer frequencyPerDay;
+
+    @Column(nullable = false)
     private LocalDate startDate;
+
     private LocalDate endDate;
+
+    @Column(length = 3000)
     private String notes;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<DosageLog> dosageLogs = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicationOpenLog> medicationOpenLogs = new ArrayList<>();
 }

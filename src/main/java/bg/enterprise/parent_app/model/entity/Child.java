@@ -22,10 +22,20 @@ public class Child extends Audit {
     @JoinColumn(name = "parent_id", nullable = false)
     private Parent parent;
 
+    @Column(length = 50, nullable = false)
     private String firstName;
+
+    @Column(length = 50, nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private LocalDate birthdate;
+
+    @Column(length = 3000)
     private String notes;
+
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Illness> illnesses = new ArrayList<>();
 
     @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Prescription> prescriptions = new ArrayList<>();

@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class MedicationDto extends AuditDto {
+public class ChronicConditionDto extends AuditDto {
     private String name;
-    private String brand;
     private String description;
-    private String dosageForm;
-    private LocalDate openDate;
     private String instructions;
+    private String notes;
+    private LocalDate eventStart;
+    private LocalDate eventEnd;
 }

@@ -18,5 +18,4 @@ public class PrescriptionDto extends AuditDto {
     private LocalDate endDate;
     private String notes;
     private List<DosageLogDto> dosageLogs;
-    private List<MedicationOpenLogDto> medicationOpenLogs;
 }

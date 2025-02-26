@@ -23,6 +23,8 @@ public class Notification extends Audit {
     @JoinColumn(name = "child_id")
     private Child child;
 
+    @Column(length = 300, nullable = false)
     private String message;
+
     private boolean isRead;
 }
