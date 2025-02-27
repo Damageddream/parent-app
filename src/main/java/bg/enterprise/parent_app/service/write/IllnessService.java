@@ -24,13 +24,17 @@ public class IllnessService implements EventService<IllnessDto> {
     public IllnessDto createEvent(IllnessDto event) {
         Illness illness = illnessMapper.toEntity(event);
         verifyChild(event.getChildId(), illness);
+        log.info("Saving illness: {}", illness);
         illness = illnessRepository.save(illness);
+        log.info("Saved illness: {}", illness);
         return illnessMapper.toDTO(illness);
     }
 
     private void verifyChild(Long childId, Illness illness) {
+        log.info("Verifying existence of child entry with id {}", childId);
         Child child = childRepository.findById(childId).orElseThrow(
                 () -> new EntityNotFoundException("Child not found"));
+        log.info("Child with id {} found: {}", childId, child);
         illness.setChild(child);
     }
 }

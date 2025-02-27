@@ -23,11 +23,13 @@ public class CalendarController {
 
     @PostMapping("/illness/create")
     public ResponseEntity<IllnessDto> createIllness(@RequestBody IllnessDto illnessDto) {
+        log.info("Received request to create illness: {}", illnessDto);
         return new ResponseEntity<>(illnessService.createEvent(illnessDto), HttpStatus.CREATED);
     }
 
     @PostMapping("/illness/search")
     public ResponseEntity<List<IllnessDto>> searchIllness(@RequestBody EventSearchCriteria criteria) {
+        log.info("Received request to search illness by criteria: {}", criteria);
         return new ResponseEntity<>(searchableIllnessService.searchEvents(criteria), HttpStatus.FOUND);
     }
 }
