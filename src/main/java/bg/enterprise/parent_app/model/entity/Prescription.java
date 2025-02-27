@@ -31,6 +31,10 @@ public class Prescription extends Audit {
     private Injury injury;
 
     @ManyToOne
+    @JoinColumn(name = "chronic_condition_id")
+    private Injury chronicCondition;
+
+    @ManyToOne
     @JoinColumn(name = "medication_id", nullable = false)
     private Medication medication;
 

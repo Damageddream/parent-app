@@ -19,8 +19,8 @@ public class Injury extends Event {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 50, nullable = false)
-    private InjuryType type;
+    @Column(length = 30, nullable = false)
+    private InjuryType injuryType;
 
     @Column(length = 3000)
     private String description;
@@ -28,7 +28,4 @@ public class Injury extends Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
-
-    @OneToOne(mappedBy = "injury", fetch = FetchType.LAZY)
-    private Prescription prescription;
 }

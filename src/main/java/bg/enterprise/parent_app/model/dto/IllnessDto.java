@@ -4,14 +4,11 @@ import bg.enterprise.parent_app.model.type.IllnessType;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
-public class IllnessDto extends AuditDto {
+public class IllnessDto extends EventDto {
     private String name;
-    private IllnessType type;
+    private Long childId;
+    private IllnessType illnessType;
     private String description;
-    private LocalDate eventStart;
-    private LocalDate eventEnd;
 }

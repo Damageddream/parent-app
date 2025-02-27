@@ -2,6 +2,7 @@ package bg.enterprise.parent_app.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +17,11 @@ public abstract class Event extends Audit {
   private LocalDate eventStart;
 
   private LocalDate eventEnd;
+
+  @PrePersist
+  public void prePersist() {
+    if (this.eventStart == null) {
+      this.eventStart = LocalDate.now();
+    }
+  }
 }

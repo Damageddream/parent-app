@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "chronic_condition")
 @Getter
@@ -25,4 +28,11 @@ public class ChronicCondition extends Event {
 
     @Column(length = 3000)
     private String notes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "child_id", nullable = false)
+    private Child child;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Prescription> prescriptions = new ArrayList<>();
 }
