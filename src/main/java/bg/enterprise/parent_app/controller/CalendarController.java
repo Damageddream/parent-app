@@ -21,12 +21,12 @@ public class CalendarController {
     private final IllnessService illnessService;
     private final SearchableIllnessService searchableIllnessService;
 
-    @PostMapping("/illness")
+    @PostMapping("/illness/create")
     public ResponseEntity<IllnessDto> createIllness(@RequestBody IllnessDto illnessDto) {
         return new ResponseEntity<>(illnessService.createEvent(illnessDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/illness")
+    @PostMapping("/illness/search")
     public ResponseEntity<List<IllnessDto>> searchIllness(@RequestBody EventSearchCriteria criteria) {
         return new ResponseEntity<>(searchableIllnessService.searchEvents(criteria), HttpStatus.FOUND);
     }

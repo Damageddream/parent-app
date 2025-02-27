@@ -16,8 +16,6 @@ public class EventSearchCriteria {
     private IllnessType illnessType;
     private InjuryType injuryType;
     private String description;
-    private LocalDate startDateRangeFrom;
-    private LocalDate startDateRangeTo;
-    private LocalDate endDateRangeFrom;
-    private LocalDate endDateRangeTo;
+    private LocalDate startDate;
+    private LocalDate endDate;
 }

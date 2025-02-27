@@ -26,10 +26,8 @@ public class SearchableIllnessService implements SearchableEventService<IllnessD
                 criteria.getChildFirstName(),
                 criteria.getIllnessType(),
                 criteria.getDescription(),
-                criteria.getStartDateRangeFrom(),
-                criteria.getStartDateRangeTo(),
-                criteria.getEndDateRangeFrom(),
-                criteria.getEndDateRangeTo()
+                criteria.getStartDate(),
+                criteria.getEndDate()
         );
         return results.stream()
                 .map(illnessMapper::toDTO)
