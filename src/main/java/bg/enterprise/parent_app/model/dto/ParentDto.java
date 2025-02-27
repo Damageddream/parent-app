@@ -15,6 +15,5 @@ public class ParentDto extends AuditDto {
     private String phone;
     private List<ChildDto> children;
     private List<DosageLogDto> dosageLogs;
-    private List<MedicationOpenLogDto> medicationOpenLogs;
     private List<NotificationDto> notifications;
 }

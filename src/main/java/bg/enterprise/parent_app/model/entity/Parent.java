@@ -17,10 +17,19 @@ public class Parent extends Audit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 50, nullable = false)
     private String firstName;
+
+    @Column(length = 50, nullable = false)
     private String lastName;
+
+    @Column(length = 100, nullable = false)
     private String email;
+
+    @Column(length = 100, nullable = false)
     private String password;
+
+    @Column(length = 20)
     private String phone;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,9 +37,6 @@ public class Parent extends Audit {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DosageLog> dosageLogs = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MedicationOpenLog> medicationOpenLogs = new ArrayList<>();
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
