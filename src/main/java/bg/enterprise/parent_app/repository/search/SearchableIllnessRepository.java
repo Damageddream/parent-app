@@ -2,14 +2,13 @@ package bg.enterprise.parent_app.repository.search;
 
 import bg.enterprise.parent_app.model.entity.Illness;
 import bg.enterprise.parent_app.model.type.IllnessType;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.ListPagingAndSortingRepository;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface SearchableIllnessRepository extends ListPagingAndSortingRepository<Illness, Long> {
+public interface SearchableIllnessRepository extends JpaRepository<Illness, Long> {
 
     @Query("""
             SELECT e FROM Illness e
@@ -18,8 +17,8 @@ public interface SearchableIllnessRepository extends ListPagingAndSortingReposit
               AND (:childFirstName IS NULL OR ch.firstName = :childFirstName)
               AND (:illnessType IS NULL OR e.illnessType = :illnessType)
               AND (:description IS NULL OR e.description = :description)
-              AND (:startDate IS NULL OR e.eventStart >= :startDate)
-              AND (:endDate IS NULL OR e.eventEnd <= :endDate)
+              AND (cast(:startDate as date) IS NULL OR e.eventStart >= :startDate)
+              AND (cast(:endDate as date) IS NULL OR cast(e.eventEnd as date) IS NULL OR e.eventEnd <= :endDate)
             ORDER BY e.creationDate DESC
             """)
     List<Illness> searchBy(
