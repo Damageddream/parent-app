@@ -25,10 +25,10 @@ public class MedicationImportService {
     private final RestTemplate restTemplate;
 
     public MedicationImportService(SearchableMedicationProductRepository medicationProductRepository,
-                                   @Qualifier("importingDataThreadPool") ThreadPoolTaskExecutor executor) {
+                                   @Qualifier("importingDataThreadPool") ThreadPoolTaskExecutor executor, RestTemplate restTemplate) {
         this.medicationProductRepository = medicationProductRepository;
         this.executor = executor;
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = restTemplate;
     }
 
     public void importMedicationDataFromXls() throws Exception {
