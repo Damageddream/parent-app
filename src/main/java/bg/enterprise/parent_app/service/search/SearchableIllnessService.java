@@ -21,6 +21,7 @@ public class SearchableIllnessService implements SearchableEventService<IllnessD
 
     @Override
     public List<IllnessDto> searchEvents(EventSearchCriteria criteria) {
+        log.info("Searching illness events by criteria: {}", criteria);
         List<Illness> results = searchableIllnessRepository.searchBy(
                 criteria.getName(),
                 criteria.getChildFirstName(),
@@ -29,6 +30,8 @@ public class SearchableIllnessService implements SearchableEventService<IllnessD
                 criteria.getStartDate(),
                 criteria.getEndDate()
         );
+        log.info("Found {} illness events", results.size());
+        log.debug("Found events: {}", results);
         return results.stream()
                 .map(illnessMapper::toDTO)
                 .toList();
