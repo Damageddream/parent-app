@@ -2,28 +2,34 @@ package bg.enterprise.parent_app.service.external;
 
 import bg.enterprise.parent_app.model.entity.MedicationProduct;
 import bg.enterprise.parent_app.repository.search.SearchableMedicationProductRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class MedicationImportService {
 
     private final SearchableMedicationProductRepository medicationProductRepository;
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final ThreadPoolTaskExecutor executor;
+    private final RestTemplate restTemplate;
+
+    public MedicationImportService(SearchableMedicationProductRepository medicationProductRepository,
+                                   @Qualifier("importingDataThreadPool") ThreadPoolTaskExecutor executor) {
+        this.medicationProductRepository = medicationProductRepository;
+        this.executor = executor;
+        this.restTemplate = new RestTemplate();
+    }
 
     public void importMedicationDataFromXls() throws Exception {
         String fileUrl = "https://rejestry.ezdrowie.gov.pl/api/rpl/medicinal-products/public-pl-report/get-xlsx";
@@ -33,8 +39,6 @@ public class MedicationImportService {
         try (InputStream is = new ByteArrayInputStream(xlsBytes);
              Workbook workbook = WorkbookFactory.create(is)) {
             Sheet sheet = workbook.getSheetAt(0);
-
-            ExecutorService executor = Executors.newFixedThreadPool(100);
 
             for (Row row : sheet) {
                 if (row.getRowNum() == 0)
@@ -65,8 +69,10 @@ public class MedicationImportService {
                 });
             }
             log.info("Medication data imported");
-            executor.shutdown();
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
+
+            // Optionally, wait for all tasks to finish (if this pool is dedicated to the import)
+            executor.getThreadPoolExecutor().shutdown();
+            if (!executor.getThreadPoolExecutor().awaitTermination(5, TimeUnit.MINUTES)) {
                 throw new IllegalStateException("Timeout waiting for medication import tasks to finish.");
             }
         }
