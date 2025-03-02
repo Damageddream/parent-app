@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
@@ -25,10 +24,10 @@ public class MedicationImportService {
     private final RestTemplate restTemplate;
 
     public MedicationImportService(SearchableMedicationProductRepository medicationProductRepository,
-                                   @Qualifier("importingDataThreadPool") ThreadPoolTaskExecutor executor, RestTemplate restTemplate) {
+                                   @Qualifier("importingDataThreadPool") ThreadPoolTaskExecutor executor) {
         this.medicationProductRepository = medicationProductRepository;
         this.executor = executor;
-        this.restTemplate = restTemplate;
+        this.restTemplate = new RestTemplate();
     }
 
     public void importMedicationDataFromXls() throws Exception {
@@ -69,12 +68,6 @@ public class MedicationImportService {
                 });
             }
             log.info("Medication data imported");
-
-            // Optionally, wait for all tasks to finish (if this pool is dedicated to the import)
-            executor.getThreadPoolExecutor().shutdown();
-            if (!executor.getThreadPoolExecutor().awaitTermination(5, TimeUnit.MINUTES)) {
-                throw new IllegalStateException("Timeout waiting for medication import tasks to finish.");
-            }
         }
     }
 }
