@@ -32,4 +32,18 @@ public class CalendarController {
         log.info("Received request to search illness by criteria: {}", criteria);
         return new ResponseEntity<>(searchableIllnessService.searchEvents(criteria), HttpStatus.FOUND);
     }
+
+    @DeleteMapping("/illness/delete/{id}")
+    public ResponseEntity<Void> deleteIllness(@PathVariable Long id) {
+        log.info("Received request to delete illness: [id={}]", id);
+        illnessService.deleteEvent(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/illness/update")
+    public ResponseEntity<Void> updateIllness(@RequestBody IllnessDto illnessDto) {
+        log.info("Received request to update illness: {} [id={}]", illnessDto, illnessDto.getId());
+        illnessService.updateEvent(illnessDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

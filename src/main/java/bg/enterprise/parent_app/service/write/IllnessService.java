@@ -30,6 +30,19 @@ public class IllnessService implements EventService<IllnessDto> {
         return illnessMapper.toDTO(illness);
     }
 
+    @Override
+    public void deleteEvent(Long id) throws EntityNotFoundException {
+        illnessRepository.deleteById(id);
+    }
+
+
+    @Override
+    public void updateEvent(IllnessDto update) {
+        Illness illness = illnessRepository.getReferenceById(update.getId());
+        illnessMapper.updateIllnessFromDto(update, illness);
+        illnessRepository.save(illness);
+    }
+
     private void verifyChild(Long childId, Illness illness) {
         log.info("Verifying existence of child entry with id {}", childId);
         Child child = childRepository.findById(childId).orElseThrow(
