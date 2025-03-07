@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class IllnessDto extends EventDto {
+    private Long id;
     private String name;
     private Long childId;
     private IllnessType illnessType;
