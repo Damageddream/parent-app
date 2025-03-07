@@ -24,4 +24,8 @@ public class DosageLog extends Audit {
 
     @Column(length = 3000)
     private String notes;
+
+    @ManyToOne
+    @JoinColumn(name = "parent_id", nullable = false)
+    private Parent parent;
 }

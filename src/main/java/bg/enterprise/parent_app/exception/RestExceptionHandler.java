@@ -18,4 +18,10 @@ public class RestExceptionHandler {
         ErrorResponse error = new ErrorResponse(ExceptionHandlingUtils.getRootCauseMessage(exc), Instant.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(EntityAlreadyExists.class)
+    public  ResponseEntity<ErrorResponse> handleException(EntityAlreadyExists exc) {
+        ErrorResponse error = new ErrorResponse(ExceptionHandlingUtils.getRootCauseMessage(exc), Instant.now());
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
 }
