@@ -25,7 +25,7 @@ public class ChildService {
     private final ParentRepository parentRepository;
 
     public ChildDto getChildById(Long id) {
-        log.info("Fetching child with ID: {}", id);
+        log.info("Fetching child: [id={}]", id);
         return childRepository.findById(id)
                 .map(childMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id " + id));
@@ -33,7 +33,7 @@ public class ChildService {
 
     @Transactional
     public ChildDto createChild(Long parentId, ChildDto childDto) {
-        log.info("Creating new child under parent ID: {}", parentId);
+        log.info("Creating new child under parent: [id={}]", parentId);
 
         Parent parent = parentRepository.findById(parentId)
                 .orElseThrow(() -> new EntityNotFoundException("Parent not found with id " + parentId));
@@ -47,7 +47,7 @@ public class ChildService {
 
     @Transactional
     public ChildDto updateChild(Long id, ChildDto childDto) {
-        log.info("Updating child with ID: {}", id);
+        log.info("Updating child with: [id={}]", id);
 
         Child child = childRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id " + id));
@@ -59,17 +59,17 @@ public class ChildService {
 
     @Transactional
     public void deleteChild(Long id) {
-        log.info("Deleting child with ID: {}", id);
+        log.info("Deleting child: [id={}]", id);
 
         Child child = childRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id " + id));
 
         childRepository.delete(child);
-        log.info("Successfully deleted child with ID: {}", id);
+        log.info("Successfully deleted child: [id={}]", id);
     }
 
     public List<ChildDto> getChildrenByParentId(Long parentId) {
-        log.info("Fetching children for parent ID: {}", parentId);
+        log.info("Fetching children for parent: [id={}]", parentId);
 
         if (!parentRepository.existsById(parentId)) {
             throw new EntityNotFoundException("Parent not found with id " + parentId);

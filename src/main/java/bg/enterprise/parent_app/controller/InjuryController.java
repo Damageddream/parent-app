@@ -21,23 +21,15 @@ public class InjuryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<InjuryDto> getInjuryById(@PathVariable Long id) {
-        log.info("Received request to fetch injury with ID: {}", id);
+        log.info("Received request to fetch injury: [id={}]", id);
         InjuryDto injuryDto = injuryService.getInjuryById(id);
         return ResponseEntity.ok(injuryDto);
     }
 
 
-    @GetMapping("/child/{childId}")
-    public ResponseEntity<List<InjuryDto>> getInjuriesByChildId(@PathVariable Long childId) {
-        log.info("Received request to fetch injuries for child ID: {}", childId);
-        List<InjuryDto> injuries = injuryService.getInjuriesByChildId(childId);
-        return ResponseEntity.ok(injuries);
-    }
-
-
     @PostMapping("/{childId}")
     public ResponseEntity<InjuryDto> createInjury(@PathVariable Long childId, @RequestBody InjuryDto injuryDto) {
-        log.info("Received request to create a new injury record for child ID: {}", childId);
+        log.info("Received request to create a new injury record: [id={}]", childId);
         InjuryDto createdInjury = injuryService.createInjury(childId, injuryDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInjury);
     }
@@ -45,7 +37,7 @@ public class InjuryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<InjuryDto> updateInjury(@PathVariable Long id, @RequestBody InjuryDto injuryDto) {
-        log.info("Received request to update injury with ID: {}", id);
+        log.info("Received request to update injury: [id={}]", id);
         InjuryDto updatedInjury = injuryService.updateInjury(id, injuryDto);
         return ResponseEntity.ok(updatedInjury);
     }
@@ -53,7 +45,7 @@ public class InjuryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInjury(@PathVariable Long id) {
-        log.info("Received request to delete injury with ID: {}", id);
+        log.info("Received request to delete injury: [id={}]", id);
         injuryService.deleteInjury(id);
         return ResponseEntity.noContent().build();
     }

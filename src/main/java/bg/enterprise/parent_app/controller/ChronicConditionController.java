@@ -21,23 +21,15 @@ public class ChronicConditionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ChronicConditionDto> getChronicConditionById(@PathVariable Long id) {
-        log.info("Received request to fetch chronic condition with ID: {}", id);
+        log.info("Received request to fetch chronic condition: [id={}]", id);
         ChronicConditionDto chronicConditionDto = chronicConditionService.getChronicConditionById(id);
         return ResponseEntity.ok(chronicConditionDto);
     }
 
 
-    @GetMapping("/child/{childId}")
-    public ResponseEntity<List<ChronicConditionDto>> getChronicConditionsByChildId(@PathVariable Long childId) {
-        log.info("Received request to fetch chronic conditions for child ID: {}", childId);
-        List<ChronicConditionDto> conditions = chronicConditionService.getChronicConditionsByChildId(childId);
-        return ResponseEntity.ok(conditions);
-    }
-
-
     @PostMapping("/{childId}")
     public ResponseEntity<ChronicConditionDto> createChronicCondition(@PathVariable Long childId, @RequestBody ChronicConditionDto chronicConditionDto) {
-        log.info("Received request to create a new chronic condition for child ID: {}", childId);
+        log.info("Received request to create a new chronic condition for child: [id={}]", childId);
         ChronicConditionDto createdCondition = chronicConditionService.createChronicCondition(childId, chronicConditionDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCondition);
     }
@@ -45,7 +37,7 @@ public class ChronicConditionController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ChronicConditionDto> updateChronicCondition(@PathVariable Long id, @RequestBody ChronicConditionDto chronicConditionDto) {
-        log.info("Received request to update chronic condition with ID: {}", id);
+        log.info("Received request to update chronic condition: [id={}]", id);
         ChronicConditionDto updatedCondition = chronicConditionService.updateChronicCondition(id, chronicConditionDto);
         return ResponseEntity.ok(updatedCondition);
     }
@@ -53,7 +45,7 @@ public class ChronicConditionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteChronicCondition(@PathVariable Long id) {
-        log.info("Received request to delete chronic condition with ID: {}", id);
+        log.info("Received request to delete chronic condition: [id={}]", id);
         chronicConditionService.deleteChronicCondition(id);
         return ResponseEntity.noContent().build();
     }

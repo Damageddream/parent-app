@@ -25,7 +25,7 @@ public class DosageLogService {
     private final PrescriptionRepository prescriptionRepository;
 
     public DosageLogDto getDosageLogById(Long id) {
-        log.info("Fetching dosage log with ID: {}", id);
+        log.info("Fetching dosage log with: [id={}]", id);
         return dosageLogRepository.findById(id)
                 .map(dosageLogMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Dosage log not found with id " + id));
@@ -33,7 +33,7 @@ public class DosageLogService {
 
     @Transactional
     public DosageLogDto createDosageLog(Long prescriptionId, DosageLogDto dosageLogDto) {
-        log.info("Creating new dosage log for prescription ID: {}", prescriptionId);
+        log.info("Creating new dosage log for prescription: [id={}]", prescriptionId);
 
         Prescription prescription = prescriptionRepository.findById(prescriptionId)
                 .orElseThrow(() -> new EntityNotFoundException("Prescription not found with id " + prescriptionId));
@@ -46,7 +46,7 @@ public class DosageLogService {
 
     @Transactional
     public DosageLogDto updateDosageLog(Long id, DosageLogDto dosageLogDto) {
-        log.info("Updating dosage log with ID: {}", id);
+        log.info("Updating dosage log with: [id={}]", id);
 
         DosageLog dosageLog = dosageLogRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Dosage log not found with id " + id));
@@ -59,12 +59,12 @@ public class DosageLogService {
 
     @Transactional
     public void deleteDosageLog(Long id) {
-        log.info("Deleting dosage log with ID: {}", id);
+        log.info("Deleting dosage log with: [id={}]", id);
 
         DosageLog dosageLog = dosageLogRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Dosage log not found with id " + id));
 
         dosageLogRepository.delete(dosageLog);
-        log.info("Successfully deleted dosage log with ID: {}", id);
+        log.info("Successfully deleted dosage log: [id={}]", id);
     }
 }

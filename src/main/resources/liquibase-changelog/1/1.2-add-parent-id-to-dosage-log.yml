@@ -22,3 +22,16 @@ databaseChangeLog:
             ALTER TABLE dosage_log
             ADD CONSTRAINT fk_prescription
             FOREIGN KEY (prescription_id) REFERENCES prescription(id);
+  - changeSet:
+      id: 4
+      author: mg
+      changes:
+        - sql: |
+            ALTER TABLE dosage_log DROP CONSTRAINT fk_dosagelog_parent;
+        - sql: |
+            ALTER TABLE dosage_log ALTER COLUMN parent_id DROP NOT NULL;
+        - sql: |
+            ALTER TABLE dosage_log
+            ADD CONSTRAINT fk_dosagelog_parent
+            FOREIGN KEY (parent_id) REFERENCES parent(id)
+            ON DELETE CASCADE;

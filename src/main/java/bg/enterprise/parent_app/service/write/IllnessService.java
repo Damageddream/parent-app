@@ -44,10 +44,10 @@ public class IllnessService implements EventService<IllnessDto> {
     }
 
     private void verifyChild(Long childId, Illness illness) {
-        log.info("Verifying existence of child entry with id {}", childId);
+        log.info("Verifying existence of child entry with: [id={}]", childId);
         Child child = childRepository.findById(childId).orElseThrow(
                 () -> new EntityNotFoundException("Child not found"));
-        log.info("Child with id {} found: {}", childId, child);
+        log.info("Child with: [id={}] found: {}", childId, child);
         illness.setChild(child);
     }
 }

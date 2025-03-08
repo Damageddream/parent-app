@@ -22,7 +22,7 @@ public class MedicationService {
     private final MedicationMapper medicationMapper;
 
     public MedicationDto getMedicationById(Long id) {
-        log.info("Fetching medication with ID: {}", id);
+        log.info("Fetching medication: [id={}]", id);
         return medicationRepository.findById(id)
                 .map(medicationMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Medication not found with id " + id));
@@ -40,7 +40,7 @@ public class MedicationService {
 
     @Transactional
     public MedicationDto updateMedication(Long id, MedicationDto medicationDto) {
-        log.info("Updating medication with ID: {}", id);
+        log.info("Updating medication: [id={}]", id);
 
         Medication medication = medicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Medication not found with id " + id));
@@ -53,13 +53,13 @@ public class MedicationService {
 
     @Transactional
     public void deleteMedication(Long id) {
-        log.info("Deleting medication with ID: {}", id);
+        log.info("Deleting medication: [id={}]", id);
 
         Medication medication = medicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Medication not found with id " + id));
 
         medicationRepository.delete(medication);
-        log.info("Successfully deleted medication with ID: {}", id);
+        log.info("Successfully deleted medication: [id={}]", id);
     }
 
     public List<MedicationDto> getAllMedications() {

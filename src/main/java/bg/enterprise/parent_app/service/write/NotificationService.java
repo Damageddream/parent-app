@@ -28,7 +28,7 @@ public class NotificationService {
     private final ChildRepository childRepository;
 
     public NotificationDto getNotificationById(Long id) {
-        log.info("Fetching notification with ID: {}", id);
+        log.info("Fetching notification: [id={}]", id);
         return notificationRepository.findById(id)
                 .map(notificationMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Notification not found with id " + id));
@@ -36,7 +36,7 @@ public class NotificationService {
 
     @Transactional
     public NotificationDto createNotification(Long parentId, Long childId, NotificationDto notificationDto) {
-        log.info("Creating new notification for parent ID: {} and child ID: {}", parentId, childId);
+        log.info("Creating new notification for parent: [id={}] and child: [id={}]", parentId, childId);
 
         Parent parent = parentRepository.findById(parentId)
                 .orElseThrow(() -> new EntityNotFoundException("Parent not found with id " + parentId));
@@ -57,7 +57,7 @@ public class NotificationService {
 
     @Transactional
     public NotificationDto updateNotification(Long id, NotificationDto notificationDto) {
-        log.info("Updating notification with ID: {}", id);
+        log.info("Updating notification: [id={}]", id);
 
         Notification notification = notificationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Notification not found with id " + id));
@@ -69,17 +69,17 @@ public class NotificationService {
 
     @Transactional
     public void deleteNotification(Long id) {
-        log.info("Deleting notification with ID: {}", id);
+        log.info("Deleting notification: [id={}]", id);
 
         Notification notification = notificationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Notification not found with id " + id));
 
         notificationRepository.delete(notification);
-        log.info("Successfully deleted notification with ID: {}", id);
+        log.info("Successfully deleted notification: [id={}]", id);
     }
 
     public List<NotificationDto> getNotificationsByParentId(Long parentId) {
-        log.info("Fetching notifications for parent ID: {}", parentId);
+        log.info("Fetching notifications for parent: [id={}]", parentId);
 
         if (!parentRepository.existsById(parentId)) {
             throw new EntityNotFoundException("Parent not found with id " + parentId);
@@ -92,7 +92,7 @@ public class NotificationService {
     }
 
     public List<NotificationDto> getNotificationsByChildId(Long childId) {
-        log.info("Fetching notifications for child ID: {}", childId);
+        log.info("Fetching notifications for child: [id={}]", childId);
 
         if (!childRepository.existsById(childId)) {
             throw new EntityNotFoundException("Child not found with id " + childId);

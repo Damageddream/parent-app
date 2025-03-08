@@ -28,7 +28,7 @@ public class PrescriptionService {
     private final MedicationRepository medicationRepository;
 
     public PrescriptionDto getPrescriptionById(Long id) {
-        log.info("Fetching prescription with ID: {}", id);
+        log.info("Fetching prescription: [id={}]", id);
         return prescriptionRepository.findById(id)
                 .map(prescriptionMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Prescription not found with id " + id));
@@ -36,7 +36,7 @@ public class PrescriptionService {
 
     @Transactional
     public PrescriptionDto createPrescription(Long childId, PrescriptionDto prescriptionDto) {
-        log.info("Creating new prescription for child ID: {}", childId);
+        log.info("Creating new prescription for child: [id={}]", childId);
 
         Child child = childRepository.findById(childId)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id " + childId));
@@ -54,7 +54,7 @@ public class PrescriptionService {
 
     @Transactional
     public PrescriptionDto updatePrescription(Long id, PrescriptionDto prescriptionDto) {
-        log.info("Updating prescription with ID: {}", id);
+        log.info("Updating prescription with: [id={}]", id);
 
         Prescription prescription = prescriptionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Prescription not found with id " + id));
@@ -72,17 +72,17 @@ public class PrescriptionService {
 
     @Transactional
     public void deletePrescription(Long id) {
-        log.info("Deleting prescription with ID: {}", id);
+        log.info("Deleting prescription: [id={}]", id);
 
         Prescription prescription = prescriptionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Prescription not found with id " + id));
 
         prescriptionRepository.delete(prescription);
-        log.info("Successfully deleted prescription with ID: {}", id);
+        log.info("Successfully deleted prescription: [id={}]", id);
     }
 
     public List<PrescriptionDto> getPrescriptionsByChildId(Long childId) {
-        log.info("Fetching prescriptions for child ID: {}", childId);
+        log.info("Fetching prescriptions for child: [id={}]", childId);
 
         if (!childRepository.existsById(childId)) {
             throw new EntityNotFoundException("Child not found with id " + childId);

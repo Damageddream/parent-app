@@ -21,7 +21,7 @@ public class MedicationController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MedicationDto> getMedicationById(@PathVariable Long id) {
-        log.info("Received request to fetch medication with ID: {}", id);
+        log.info("Received request to fetch medication: [id={}]", id);
         MedicationDto medicationDto = medicationService.getMedicationById(id);
         return ResponseEntity.ok(medicationDto);
     }
@@ -37,7 +37,7 @@ public class MedicationController {
 
     @PostMapping
     public ResponseEntity<MedicationDto> createMedication(@RequestBody MedicationDto medicationDto) {
-        log.info("Received request to create a new medication: {}", medicationDto.getName());
+        log.info("Received request to create a new medication: [id={}]", medicationDto.getName());
         MedicationDto createdMedication = medicationService.createMedication(medicationDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMedication);
     }
@@ -45,7 +45,7 @@ public class MedicationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MedicationDto> updateMedication(@PathVariable Long id, @RequestBody MedicationDto medicationDto) {
-        log.info("Received request to update medication with ID: {}", id);
+        log.info("Received request to update medication: [id={}]", id);
         MedicationDto updatedMedication = medicationService.updateMedication(id, medicationDto);
         return ResponseEntity.ok(updatedMedication);
     }
@@ -53,7 +53,7 @@ public class MedicationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMedication(@PathVariable Long id) {
-        log.info("Received request to delete medication with ID: {}", id);
+        log.info("Received request to delete medication: [id={}]", id);
         medicationService.deleteMedication(id);
         return ResponseEntity.noContent().build();
     }

@@ -21,23 +21,15 @@ public class ChildController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ChildDto> getChildById(@PathVariable Long id) {
-        log.info("Received request to fetch child with ID: {}", id);
+        log.info("Received request to fetch child: [id={}]", id);
         ChildDto childDto = childService.getChildById(id);
         return ResponseEntity.ok(childDto);
     }
 
 
-    @GetMapping("/parent/{parentId}")
-    public ResponseEntity<List<ChildDto>> getChildrenByParentId(@PathVariable Long parentId) {
-        log.info("Received request to fetch children for parent ID: {}", parentId);
-        List<ChildDto> children = childService.getChildrenByParentId(parentId);
-        return ResponseEntity.ok(children);
-    }
-
-
     @PostMapping("/{parentId}")
     public ResponseEntity<ChildDto> createChild(@PathVariable Long parentId, @RequestBody ChildDto childDto) {
-        log.info("Received request to create a new child under parent ID: {}", parentId);
+        log.info("Received request to create a new child under parent: [id={}]", parentId);
         ChildDto createdChild = childService.createChild(parentId, childDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdChild);
     }
@@ -45,7 +37,7 @@ public class ChildController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ChildDto> updateChild(@PathVariable Long id, @RequestBody ChildDto childDto) {
-        log.info("Received request to update child with ID: {}", id);
+        log.info("Received request to update child: [id={}]", id);
         ChildDto updatedChild = childService.updateChild(id, childDto);
         return ResponseEntity.ok(updatedChild);
     }
@@ -53,7 +45,7 @@ public class ChildController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteChild(@PathVariable Long id) {
-        log.info("Received request to delete child with ID: {}", id);
+        log.info("Received request to delete child: [id={}]", id);
         childService.deleteChild(id);
         return ResponseEntity.noContent().build();
     }

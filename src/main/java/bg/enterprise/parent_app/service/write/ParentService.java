@@ -23,7 +23,7 @@ public class ParentService {
 
 
     public ParentDto getParentById(Long id) {
-        log.info("Fetching parent with ID: {}", id);
+        log.info("Fetching parent: [id={}]", id);
         return parentRepository.findById(id).map(parentMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Parent not found with id " + id));
     }
@@ -42,7 +42,7 @@ public class ParentService {
 
     @Transactional
     public ParentDto updateParent(Long id, ParentDto parentDto) {
-        log.info("Updating parent with ID: {}", id);
+        log.info("Updating parent: [id={}]", id);
 
         Parent parent = parentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Parent not found with id " + id));
 
@@ -58,13 +58,13 @@ public class ParentService {
 
     @Transactional
     public void deleteParent(Long id) {
-        log.info("Deleting parent with ID: {}", id);
+        log.info("Deleting parent: [id={}]", id);
 
         Parent parent = parentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Parent not found with id " + id));
 
         parentRepository.delete(parent);
-        log.info("Successfully deleted parent with ID: {}", id);
+        log.info("Successfully deleted parent: [id={}]", id);
 
     }
 

@@ -25,7 +25,7 @@ public class ChronicConditionService {
     private final ChildRepository childRepository;
 
     public ChronicConditionDto getChronicConditionById(Long id) {
-        log.info("Fetching chronic condition with ID: {}", id);
+        log.info("Fetching chronic condition: [id={}]", id);
         return chronicConditionRepository.findById(id)
                 .map(chronicConditionMapper::toDTO)
                 .orElseThrow(() -> new EntityNotFoundException("Chronic condition not found with id " + id));
@@ -33,7 +33,7 @@ public class ChronicConditionService {
 
     @Transactional
     public ChronicConditionDto createChronicCondition(Long childId, ChronicConditionDto chronicConditionDto) {
-        log.info("Creating new chronic condition for child ID: {}", childId);
+        log.info("Creating new chronic condition for child: [id={}]", childId);
 
         Child child = childRepository.findById(childId)
                 .orElseThrow(() -> new EntityNotFoundException("Child not found with id " + childId));
@@ -47,7 +47,7 @@ public class ChronicConditionService {
 
     @Transactional
     public ChronicConditionDto updateChronicCondition(Long id, ChronicConditionDto chronicConditionDto) {
-        log.info("Updating chronic condition with ID: {}", id);
+        log.info("Updating chronic condition: [id={}]", id);
 
         ChronicCondition chronicCondition = chronicConditionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Chronic condition not found with id " + id));
@@ -59,17 +59,17 @@ public class ChronicConditionService {
 
     @Transactional
     public void deleteChronicCondition(Long id) {
-        log.info("Deleting chronic condition with ID: {}", id);
+        log.info("Deleting chronic condition: [id={}]", id);
 
         ChronicCondition chronicCondition = chronicConditionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Chronic condition not found with id " + id));
 
         chronicConditionRepository.delete(chronicCondition);
-        log.info("Successfully deleted chronic condition with ID: {}", id);
+        log.info("Successfully deleted chronic condition: [id={}]", id);
     }
 
     public List<ChronicConditionDto> getChronicConditionsByChildId(Long childId) {
-        log.info("Fetching chronic conditions for child ID: {}", childId);
+        log.info("Fetching chronic conditions for: [id={}]", childId);
 
         if (!childRepository.existsById(childId)) {
             throw new EntityNotFoundException("Child not found with id " + childId);
