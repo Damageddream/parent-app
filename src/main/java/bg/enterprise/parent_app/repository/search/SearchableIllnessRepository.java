@@ -4,10 +4,12 @@ import bg.enterprise.parent_app.model.entity.Illness;
 import bg.enterprise.parent_app.model.type.IllnessType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public interface SearchableIllnessRepository extends JpaRepository<Illness, Long> {
 
     @Query("""
