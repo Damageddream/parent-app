@@ -32,7 +32,8 @@ public class ChildService {
     }
 
     @Transactional
-    public ChildDto createChild(Long parentId, ChildDto childDto) {
+    public ChildDto createChild(ChildDto childDto) {
+        Long parentId = childDto.getParentId();
         log.info("Creating new child under parent: [id={}]", parentId);
 
         Parent parent = parentRepository.findById(parentId)
@@ -44,6 +45,7 @@ public class ChildService {
         child = childRepository.save(child);
         return childMapper.toDTO(child);
     }
+
 
     @Transactional
     public ChildDto updateChild(Long id, ChildDto childDto) {

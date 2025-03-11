@@ -27,10 +27,10 @@ public class ChildController {
     }
 
 
-    @PostMapping("/{parentId}")
-    public ResponseEntity<ChildDto> createChild(@PathVariable Long parentId, @RequestBody ChildDto childDto) {
-        log.info("Received request to create a new child under parent: [id={}]", parentId);
-        ChildDto createdChild = childService.createChild(parentId, childDto);
+    @PostMapping
+    public ResponseEntity<ChildDto> createChild(@RequestBody ChildDto childDto) {
+        log.info("Received request to create a new child under parent: [id={}]", childDto.getParentId());
+        ChildDto createdChild = childService.createChild(childDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdChild);
     }
 
