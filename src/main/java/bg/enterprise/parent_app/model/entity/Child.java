@@ -38,6 +38,12 @@ public class Child extends Audit {
     private List<Illness> illnesses = new ArrayList<>();
 
     @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Injury> injuries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ChronicCondition> chronicConditions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Prescription> prescriptions = new ArrayList<>();
 
     @OneToMany(mappedBy = "child", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

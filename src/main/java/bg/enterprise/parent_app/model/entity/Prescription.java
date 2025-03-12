@@ -22,17 +22,17 @@ public class Prescription extends Audit {
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "illness_id")
     private Illness illness;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "injury_id")
     private Injury injury;
 
     @ManyToOne
     @JoinColumn(name = "chronic_condition_id")
-    private Injury chronicCondition;
+    private ChronicCondition chronicCondition;
 
     @ManyToOne
     @JoinColumn(name = "medication_id", nullable = false)
@@ -56,5 +56,6 @@ public class Prescription extends Audit {
     private String notes;
 
     @OneToMany
+    @JoinColumn(name = "prescription_id")
     private List<DosageLog> dosageLogs = new ArrayList<>();
 }

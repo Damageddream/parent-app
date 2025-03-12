@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ChronicCondition extends Event {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +32,10 @@ public class ChronicCondition extends Event {
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chronicCondition", fetch = FetchType.LAZY)
     private List<Prescription> prescriptions = new ArrayList<>();
+
+    //  JPA defaults to creating a join table (with a generated name such as “chronic_condition_medication”).
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Medication> medications = new ArrayList<>();
 }
