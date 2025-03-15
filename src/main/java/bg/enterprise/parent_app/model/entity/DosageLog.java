@@ -24,5 +24,4 @@ public class DosageLog extends Audit {
 
     @Column(length = 3000)
     private String notes;
-
 }

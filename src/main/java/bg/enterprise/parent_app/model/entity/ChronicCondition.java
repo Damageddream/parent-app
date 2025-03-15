@@ -32,7 +32,7 @@ public class ChronicCondition extends Event {
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
 
-    @OneToMany(mappedBy = "chronicCondition", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Prescription> prescriptions = new ArrayList<>();
 
     //  JPA defaults to creating a join table (with a generated name such as “chronic_condition_medication”).
