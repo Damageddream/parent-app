@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Medication extends Audit {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,9 +24,10 @@ public class Medication extends Audit {
     @Column(length = 3000)
     private String description;
 
-    @Column(length = 50, nullable = false)
+    @Column(name = "dosage_form", length = 50, nullable = false)
     private String dosageForm;
 
+    @Column(name = "open_date")
     private LocalDate openDate;
 
     @Column(length = 3000)

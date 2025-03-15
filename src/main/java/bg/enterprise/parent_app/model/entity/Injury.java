@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "injury")
 @Getter
@@ -28,4 +31,11 @@ public class Injury extends Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
+
+    @OneToMany(mappedBy = "injury", fetch = FetchType.LAZY)
+    private List<Prescription> prescriptions;
+
+    //  JPA defaults to creating a join table (with a generated name such as “injury_medication”).
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Medication> medications = new ArrayList<>();
 }
