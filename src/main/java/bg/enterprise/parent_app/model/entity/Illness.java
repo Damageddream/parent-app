@@ -35,7 +35,11 @@ public class Illness extends Event {
     @OneToMany(mappedBy = "illness", fetch = FetchType.LAZY)
     private List<Prescription> prescriptions;
 
-    //  JPA defaults to creating a join table (with a generated name such as “illness_medication”).
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "illness_medications",
+            joinColumns = @JoinColumn(name = "illness_id"),
+            inverseJoinColumns = @JoinColumn(name = "medication_id")
+    )
     private List<Medication> medications = new ArrayList<>();
 }
