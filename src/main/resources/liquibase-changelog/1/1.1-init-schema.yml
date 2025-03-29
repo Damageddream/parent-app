@@ -54,7 +54,7 @@ databaseChangeLog:
                                 event_start DATE NOT NULL DEFAULT CURRENT_DATE,
                                 event_end DATE,
                                 creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                created_by VARCHAR(20) DEFAULT '',
+                                created_by VARCHAR(40) DEFAULT '',
                                 update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                 updated_by VARCHAR(40) DEFAULT '',
                                 CONSTRAINT fk_illness_child FOREIGN KEY (child_id) REFERENCES child(id) ON DELETE CASCADE
@@ -70,7 +70,7 @@ databaseChangeLog:
                                 event_start DATE NOT NULL DEFAULT CURRENT_DATE,
                                 event_end DATE,
                                 creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                created_by VARCHAR(20) DEFAULT '',
+                                created_by VARCHAR(40) DEFAULT '',
                                 update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                 updated_by VARCHAR(40) DEFAULT '',
                                 CONSTRAINT fk_chronic_condition_child FOREIGN KEY (child_id) REFERENCES child(id) ON DELETE CASCADE
@@ -158,3 +158,27 @@ databaseChangeLog:
                                 update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                 updated_by VARCHAR(40) DEFAULT ''
                             );
+                    - sql: |
+                              CREATE TABLE illness_medications (
+                                  illness_id BIGINT NOT NULL,
+                                  medication_id BIGINT NOT NULL,
+                                  PRIMARY KEY (illness_id, medication_id),
+                                  CONSTRAINT fk_illness_medications_illness FOREIGN KEY (illness_id) REFERENCES illness(id) ON DELETE CASCADE,
+                                  CONSTRAINT fk_illness_medications_medication FOREIGN KEY (medication_id) REFERENCES medication(id) ON DELETE CASCADE
+                              );
+                    - sql: |
+                              CREATE TABLE injury_medications (
+                                  injury_id BIGINT NOT NULL,
+                                  medication_id BIGINT NOT NULL,
+                                  PRIMARY KEY (injury_id, medication_id),
+                                  CONSTRAINT fk_injury_medications_injury FOREIGN KEY (injury_id) REFERENCES injury(id) ON DELETE CASCADE,
+                                  CONSTRAINT fk_injury_medications_medication FOREIGN KEY (medication_id) REFERENCES medication(id) ON DELETE CASCADE
+                              );
+                    - sql: |
+                              CREATE TABLE chronic_condition_medications (
+                                  chronic_condition_id BIGINT NOT NULL,
+                                  medication_id BIGINT NOT NULL,
+                                  PRIMARY KEY (chronic_condition_id, medication_id),
+                                  CONSTRAINT fk_chronic_condition_medications_chronic_condition FOREIGN KEY (chronic_condition_id) REFERENCES chronic_condition(id) ON DELETE CASCADE,
+                                  CONSTRAINT fk_chronic_condition_medications_medication FOREIGN KEY (medication_id) REFERENCES medication(id) ON DELETE CASCADE
+                              );

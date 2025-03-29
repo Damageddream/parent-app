@@ -5,5 +5,5 @@ public interface EventService <T> {
 
     void deleteEvent(Long id);
 
-    void updateEvent(T event);
+    T updateEvent(T event);
 }
