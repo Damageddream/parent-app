@@ -6,8 +6,10 @@ import bg.enterprise.parent_app.model.mapper.IllnessMapper;
 import bg.enterprise.parent_app.model.search_criteria.EventSearchCriteria;
 import bg.enterprise.parent_app.model.type.IllnessType;
 import bg.enterprise.parent_app.service.search.SearchableIllnessService;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(scripts = {"file:src/test/java/resources/scripts/init.sql"},
         config = @SqlConfig(encoding = "UTF-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class IllnessControllerTest extends IntegrationSpec {
 
     @Autowired
@@ -49,6 +52,10 @@ class IllnessControllerTest extends IntegrationSpec {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value(name))
                 .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.illnessType").value(IllnessType.VIRAL.name().toUpperCase()))
+                .andExpect(jsonPath("$.description").value(description))
+                .andExpect(jsonPath("$.childId").value(1L))
                 .andReturn();
 
         String jsonResponse = result.getResponse().getContentAsString();
@@ -62,7 +69,7 @@ class IllnessControllerTest extends IntegrationSpec {
         String name = "testIllness";
         IllnessType type = IllnessType.VIRAL;
         String description = "newDescription";
-        Long id = 1L;
+        Long id = testedId;
         Long childId = 1L;
 
         IllnessDto input = CreateDtoFactory.createIllnessDto(id, childId, name, type, description);
@@ -72,6 +79,12 @@ class IllnessControllerTest extends IntegrationSpec {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.illnessType").value(IllnessType.VIRAL.name().toUpperCase()))
+                .andExpect(jsonPath("$.description").value(description))
+                .andExpect(jsonPath("$.childId").value(1L))
                 .andReturn();
     }
 

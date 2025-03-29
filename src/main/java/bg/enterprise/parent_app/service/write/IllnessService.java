@@ -37,10 +37,10 @@ public class IllnessService implements EventService<IllnessDto> {
 
 
     @Override
-    public void updateEvent(IllnessDto update) {
-        Illness illness = illnessRepository.getReferenceById(update.getId());
+    public IllnessDto updateEvent(IllnessDto update) {
+        Illness illness = illnessRepository.findById(update.getId()).orElseThrow(() -> new EntityNotFoundException("Illness not found"));
         illnessMapper.updateIllnessFromDto(update, illness);
-        illnessRepository.save(illness);
+        return illnessMapper.toDTO(illnessRepository.save(illness));
     }
 
     private void verifyChild(Long childId, Illness illness) {

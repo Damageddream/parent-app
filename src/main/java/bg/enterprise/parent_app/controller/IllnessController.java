@@ -28,10 +28,9 @@ public class IllnessController {
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<Void> updateIllness(@RequestBody IllnessDto illnessDto) {
+    public ResponseEntity<IllnessDto> updateIllness(@RequestBody IllnessDto illnessDto) {
         log.info("Received request to update illness: {} [id={}]", illnessDto, illnessDto.getId());
-        illnessService.updateEvent(illnessDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(illnessService.updateEvent(illnessDto), HttpStatus.OK);
     }
 
     @PostMapping("/search")
