@@ -1,6 +1,8 @@
 package bg.enterprise.parent_app.controller;
 
 import bg.enterprise.parent_app.model.dto.ChronicConditionDto;
+import bg.enterprise.parent_app.model.search_criteria.EventSearchCriteria;
+import bg.enterprise.parent_app.service.search.SearchableChronicConditionService;
 import bg.enterprise.parent_app.service.write.ChronicConditionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import java.util.List;
 public class ChronicConditionController {
 
     private final ChronicConditionService chronicConditionService;
+    private final SearchableChronicConditionService searchableChronicConditionService;
 
 
     @GetMapping("/{id}")
@@ -32,6 +35,12 @@ public class ChronicConditionController {
         log.info("Received request to create a new chronic condition for child: [id={}]", childId);
         ChronicConditionDto createdCondition = chronicConditionService.createChronicCondition(childId, chronicConditionDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCondition);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<ChronicConditionDto>> searchChronicCondition(@RequestBody EventSearchCriteria criteria) {
+        log.info("Received request to search chronic condition by criteria: {}", criteria);
+        return new ResponseEntity<>(searchableChronicConditionService.searchEvents(criteria), HttpStatus.OK);
     }
 
 
