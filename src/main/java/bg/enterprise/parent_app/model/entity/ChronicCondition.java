@@ -32,7 +32,7 @@ public class ChronicCondition extends Event {
     @JoinColumn(name = "child_id", nullable = false)
     private Child child;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chronicCondition", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Prescription> prescriptions = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER)

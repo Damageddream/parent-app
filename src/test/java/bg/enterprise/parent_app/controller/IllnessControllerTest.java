@@ -1,6 +1,5 @@
 package bg.enterprise.parent_app.controller;
 
-import bg.enterprise.parent_app.model.CreateDtoFactory;
 import bg.enterprise.parent_app.model.dto.IllnessDto;
 import bg.enterprise.parent_app.model.mapper.IllnessMapper;
 import bg.enterprise.parent_app.model.search_criteria.EventSearchCriteria;
@@ -12,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,9 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql(scripts = {"file:src/test/java/resources/scripts/init.sql"},
-        config = @SqlConfig(encoding = "UTF-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class IllnessControllerTest extends IntegrationSpec {
 
@@ -43,7 +38,13 @@ class IllnessControllerTest extends IntegrationSpec {
         String description = "testIllnessDescription";
         Long childId = 1L;
 
-        IllnessDto input = CreateDtoFactory.createIllnessDto(null, childId, name, type, description);
+        IllnessDto input = IllnessDto.builder()
+                .id(null)
+                .childId(childId)
+                .name(name)
+                .illnessType(type)
+                .description(description)
+                .build();
 
         MvcResult result = mockMvc.perform(post("/illness/create")
                         .content(objectMapper.writeValueAsString(input))
@@ -72,7 +73,13 @@ class IllnessControllerTest extends IntegrationSpec {
         Long id = testedId;
         Long childId = 1L;
 
-        IllnessDto input = CreateDtoFactory.createIllnessDto(id, childId, name, type, description);
+        IllnessDto input = IllnessDto.builder()
+                .id(id)
+                .childId(childId)
+                .name(name)
+                .illnessType(type)
+                .description(description)
+                .build();
 
         mockMvc.perform(patch("/illness/update")
                         .content(objectMapper.writeValueAsString(input))
