@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class MedicationControllerTest extends IntegrationSpec {
+class MedicationControllerTest extends IntegrationSpec {
 
     @Test
     @Order(1)

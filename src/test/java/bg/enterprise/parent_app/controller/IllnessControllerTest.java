@@ -1,6 +1,5 @@
 package bg.enterprise.parent_app.controller;
 
-import bg.enterprise.parent_app.model.CreateDtoFactory;
 import bg.enterprise.parent_app.model.dto.IllnessDto;
 import bg.enterprise.parent_app.model.mapper.IllnessMapper;
 import bg.enterprise.parent_app.model.search_criteria.EventSearchCriteria;
@@ -39,7 +38,13 @@ class IllnessControllerTest extends IntegrationSpec {
         String description = "testIllnessDescription";
         Long childId = 1L;
 
-        IllnessDto input = CreateDtoFactory.createIllnessDto(null, childId, name, type, description);
+        IllnessDto input = IllnessDto.builder()
+                .id(null)
+                .childId(childId)
+                .name(name)
+                .illnessType(type)
+                .description(description)
+                .build();
 
         MvcResult result = mockMvc.perform(post("/illness/create")
                         .content(objectMapper.writeValueAsString(input))
@@ -68,7 +73,13 @@ class IllnessControllerTest extends IntegrationSpec {
         Long id = testedId;
         Long childId = 1L;
 
-        IllnessDto input = CreateDtoFactory.createIllnessDto(id, childId, name, type, description);
+        IllnessDto input = IllnessDto.builder()
+                .id(id)
+                .childId(childId)
+                .name(name)
+                .illnessType(type)
+                .description(description)
+                .build();
 
         mockMvc.perform(patch("/illness/update")
                         .content(objectMapper.writeValueAsString(input))

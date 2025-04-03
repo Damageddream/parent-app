@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class NotificationControllerTest extends IntegrationSpec {
+class NotificationControllerTest extends IntegrationSpec {
 
     @Test
     @Order(1)

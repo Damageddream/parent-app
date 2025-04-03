@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class DosageLogControllerTest extends IntegrationSpec {
+class DosageLogControllerTest extends IntegrationSpec {
 
     @Test
     @Order(1)

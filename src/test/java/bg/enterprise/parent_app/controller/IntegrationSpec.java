@@ -29,7 +29,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @Testcontainers
 @WithMockUser()
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class IntegrationSpec {
+abstract class IntegrationSpec {
 
     protected MockMvc mockMvc;
 
@@ -68,7 +68,7 @@ public abstract class IntegrationSpec {
         try (Connection conn = dataSource.getConnection()) {
             String sql = Files.readString(Path.of(sqlScriptPath));
             for (String statement : sql.split(";")) {
-                if (!statement.strip().isEmpty()) {
+                if (!statement.isBlank()) {
                     try (PreparedStatement ps = conn.prepareStatement(statement)) {
                         ps.execute();
                     }

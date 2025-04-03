@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ParentControllerTest extends IntegrationSpec {
+class ParentControllerTest extends IntegrationSpec {
 
     @Autowired
     ParentMapper parentMapper;

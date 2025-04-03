@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class RegistrationAndLoginControllerTest extends IntegrationSpec {
+class RegistrationAndLoginControllerTest extends IntegrationSpec {
 
     @Test
     @Order(1)

@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ChronicConditionControllerTest extends IntegrationSpec {
+class ChronicConditionControllerTest extends IntegrationSpec {
 
     @Autowired
     ChronicConditionMapper chronicConditionMapper;
