@@ -9,18 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql(scripts = {"file:src/test/java/resources/scripts/chronicConditionTestInit.sql"},
-        config = @SqlConfig(encoding = "UTF-8", transactionMode = SqlConfig.TransactionMode.ISOLATED),
-        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ChronicConditionControllerTest extends IntegrationSpec {
 
@@ -37,7 +32,7 @@ public class ChronicConditionControllerTest extends IntegrationSpec {
                 .notes("Monitor during winter")
                 .build();
 
-        MvcResult result = mockMvc.perform(post("/chronic-conditions/{childId}", 1L)
+        mockMvc.perform(post("/chronic-conditions/{childId}", 1L)
                         .content(objectMapper.writeValueAsString(input))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

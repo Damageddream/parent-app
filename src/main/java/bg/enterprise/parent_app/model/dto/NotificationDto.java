@@ -11,5 +11,5 @@ public class NotificationDto extends AuditDto {
     private Long parentId;
     private Long childId;
     private String message;
-    private boolean isRead;
+    private boolean read;
 }
