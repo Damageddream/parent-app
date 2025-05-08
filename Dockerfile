@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy only the Gradle wrapper, build scripts, and settings first.
 # These layers will be cached unless these files change.
 COPY gradlew .
+RUN chmod +x gradlew
 COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
