@@ -16,6 +16,8 @@ RUN ./gradlew --version
 # Now copy the rest of the project files.
 COPY . .
 
+RUN chmod +x gradlew
+
 # Build the project.
 RUN ./gradlew clean build --no-daemon
 
