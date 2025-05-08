@@ -8,12 +8,8 @@
 name: Java CI with Gradle
 
 env:
-  # Your Docker Hub login
   DOCKERHUB_USERNAME: damageddream
-  # Matches your repo folder name
   PROJECT_NAME: parent-app
-  # Combined into marca/parent-app
-  IMAGE_NAME: ${{ env.DOCKERHUB_USERNAME }}/${{ env.PROJECT_NAME }}
 
 on:
   push:
@@ -52,6 +48,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      IMAGE_NAME: ${{ env.DOCKERHUB_USERNAME }}/${{ env.PROJECT_NAME }}
 
     steps:
       - uses: actions/checkout@v4
