@@ -1,7 +1,4 @@
 name: Java CI with Gradle
-env:
-  DOCKERHUB_USERNAME: damageddream
-  PROJECT_NAME: parent-app
 
 on:
   push:
@@ -14,65 +11,65 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
-      # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew
+
       - name: Build with Gradle Wrapper
-        run: ./gradlew build
+        run: ./gradlew clean build
 
   docker:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Ensure this permission is sufficient if you are reading other repo contents.
-      # Typically, for Docker builds accessing the repo, 'contents: read' is fine.
-    env:
-      # Corrected IMAGE_NAME definition.
-      # It uses the workflow-level env variables DOCKERHUB_USERNAME and PROJECT_NAME.
-      IMAGE_NAME: ${{ env.DOCKERHUB_USERNAME }}/${{ env.PROJECT_NAME }}
+      contents: read
+
     steps:
       - uses: actions/checkout@v4
 
-      # Log in to Docker Hub using secrets.
-      # Ensure DOCKERHUB_USERNAME and DOCKERHUB_TOKEN secrets are configured in your repository settings.
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2 # Consider using a more recent version like v3 if available and compatible.
+        uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: damageddream
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Build the Docker image, tagging with the IMAGE_NAME (e.g., damageddream/parent-app) and the commit SHA.
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          docker build \
+            -t damageddream/parent-app:latest \
+            -t damageddream/parent-app:${{ github.sha }} \
+            .
 
-      # Push the Docker image to Docker Hub.
       - name: Push Docker image
         run: |
-          docker push ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          docker push damageddream/parent-app:latest
+          docker push damageddream/parent-app:${{ github.sha }}
 
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # This permission is necessary for submitting the dependency graph.
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
-      # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+
       - name: Generate and submit dependency graph
-        uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+        uses: gradle/actions/dependency-submission@v4
