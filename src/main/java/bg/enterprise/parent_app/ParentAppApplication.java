@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories
 public class ParentAppApplication {
+	double asd = 2.9;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ParentAppApplication.class, args);
