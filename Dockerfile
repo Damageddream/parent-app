@@ -19,7 +19,7 @@ COPY . .
 RUN chmod +x gradlew
 
 # Build the project.
-RUN ./gradlew clean build --no-daemon
+RUN ./gradlew clean build
 
 # 2) Final Stage
 FROM eclipse-temurin:21-jdk-alpine
