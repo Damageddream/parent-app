@@ -5,6 +5,7 @@ WORKDIR /app
 # Copy only the Gradle wrapper, build scripts, and settings first.
 # These layers will be cached unless these files change.
 COPY gradlew .
+RUN chmod +x gradlew
 COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
@@ -15,8 +16,10 @@ RUN ./gradlew --version
 # Now copy the rest of the project files.
 COPY . .
 
+RUN chmod +x gradlew
+
 # Build the project.
-RUN ./gradlew clean build --no-daemon
+RUN ./gradlew clean build
 
 # 2) Final Stage
 FROM eclipse-temurin:21-jdk-alpine
